@@ -1,6 +1,6 @@
 import requests
 
-API_KEY = "YOUR_ALPHA_VANTAGE_API_KEY"
+API_KEY = "WXE6G5QXY6VTKLUI"
 
 def fetch_stock_data(symbol, time_series):
     base_url = "https://www.alphavantage.co/query"
