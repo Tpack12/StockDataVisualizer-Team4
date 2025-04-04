@@ -3,12 +3,19 @@ from chart_generator import generate_chart
 from utils import validate_date_range
 
 def show_menu(title, options):
-    print(f"\n{title}")
-    print("-" * len(title))
-    for i, option in enumerate(options, start=1):
-        print(f"{i}. {option}")
-    choice = input(f"\nEnter your choice (1 - {len(options)}): ")
-    return int(choice)
+    while True:
+        print(f"\n{title}")
+        print("-" * len(title))
+        for i, option in enumerate(options, start=1):
+            print(f"{i}. {option}")
+        try:
+            choice = int(input(f"\nEnter your choice (1 - {len(options)}): "))
+            if 1 <= choice <= len(options):
+                return choice
+            else:
+                print(" Invalid choice. Please select a valid option.")
+        except ValueError:
+            print(" Please enter a number.")
 
 def main():
     print("Stock Data Visualizer")
@@ -32,14 +39,14 @@ def main():
         end_date = input("Enter the end Date (YYYY-MM-DD): ")
 
         if not validate_date_range(start_date, end_date):
-            print("End date must not be before the start date.")
+            print(" Invalid date range. Please try again.")
             continue
 
         data = fetch_stock_data(symbol, time_series)
         if data:
             generate_chart(data, chart_type, start_date, end_date, symbol)
         else:
-            print("Failed to retrieve stock data.")
+            print(" Failed to retrieve stock data.")
 
         more = input("\nWould you like to view more stock data? Press 'y' to continue: ").lower()
         if more != 'y':
@@ -48,3 +55,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
